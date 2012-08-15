@@ -1,0 +1,798 @@
+{
+  "bounds": [
+    -180, 
+    -85.0511, 
+    180, 
+    85.0511
+  ],
+  "center": [
+    0, 
+    20, 
+    4
+  ],
+  "format": "png",
+  "interactivity": false,
+  "minzoom": 0,
+  "maxzoom": 19,
+  "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+  "Stylesheet": [
+    "land.mss",
+    "roads.mss",
+    "boundaries.mss",
+    "labels.mss",
+    "palette.mss"
+  ],
+  "Layer": [
+    {
+      "geometry": "polygon",
+      "id": "land-shapes-110m",
+      "class": "",
+      "Datasource": {
+        "file": "layers/110m_land/110m_land.shp",
+        "id": "land",
+        "project": "toner4tilemill",
+        "srs": null
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "land-shapes-110m"
+    },
+    {
+      "geometry": "polygon",
+      "id": "country-shapes-110m",
+      "class": "",
+      "Datasource": {
+        "file": "layers/country-shapes-110m/ne_110m_admin_0_countries.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "country-shapes-110m"
+    },
+    {
+      "geometry": "polygon",
+      "id": "country-shapes-50m",
+      "class": "",
+      "Datasource": {
+        "file": "layers/country-shapes-50m/ne_50m_admin_0_countries.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "country-shapes-50m"
+    },
+    {
+      "geometry": "polygon",
+      "id": "country-shapes-10m",
+      "class": "",
+      "Datasource": {
+        "file": "layers/country-shapes-10m/ne_10m_admin_0_countries.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "country-shapes-10m"
+    },
+    {
+      "geometry": "polygon",
+      "id": "land",
+      "class": "",
+      "Datasource": {
+        "file": "layers/land-polygons-complete/land_polygons.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "land"
+    },
+    {
+      "geometry": "polygon",
+      "id": "admin1-lines-50m",
+      "class": "",
+      "Datasource": {
+        "file": "layers/admin1-lines-50m/50m_admin_1_states_provinces_shp.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "admin1-lines-50m"
+    },
+    {
+      "geometry": "linestring",
+      "id": "admin1-lines-10m",
+      "class": "",
+      "Datasource": {
+        "file": "layers/admin1-lines-10m/ne_10m_admin_1_states_provinces_lines.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "admin1-lines-10m"
+    },
+    {
+      "geometry": "linestring",
+      "id": "ne_10m_admin_0_boundary_lines_land",
+      "class": "",
+      "Datasource": {
+        "file": "layers/ne_10m_admin_0_boundary_lines_land/ne_10m_admin_0_boundary_lines_land.shp",
+        "id": "ne_10m_admin_0_boundary_lines_land",
+        "project": "toner4tilemill",
+        "srs": null
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "ne_10m_admin_0_boundary_lines_land"
+    },
+    {
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT way, name FROM planet_osm_polygon WHERE \"boundary\" IN ('administrative') AND \"admin_level\" IN ('4') AND \"admin_level\" NOT IN ('territorial_waters', 'territorial waters') ORDER BY z_order ASC) AS water",
+        "extent": "",
+        "key_field": "",
+        "geometry_field": "",
+        "user": "postgres",
+        "dbname": "osm"
+      },
+      "id": "admin1-lines-osm",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "name": "admin1-lines-osm"
+    },
+    {
+      "geometry": "linestring",
+      "id": "ne-roads-casing",
+      "class": "",
+      "Datasource": {
+        "file": "layers/ne_10m_roads/ne_roads_1d5_beta2.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "ne-roads-casing"
+    },
+    {
+      "geometry": "linestring",
+      "id": "ne-roads-inline",
+      "class": "",
+      "Datasource": {
+        "file": "layers/ne_10m_roads/ne_roads_1d5_beta2.shp",
+        "id": "ne-roads-inline",
+        "project": "toner4tilemill",
+        "srs": null
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "ne-roads-inline"
+    },
+    {
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT way, name, ST_Area(way) AS area, leisure, landuse\n                 FROM planet_osm_polygon\n                 WHERE leisure IN ('park', 'water_park', 'marina', 'nature_reserve', 'playground', 'garden', 'common', 'sports_centre', 'golf_course', 'stadium', 'track', 'pitch')\n                    OR landuse IN ('cemetery', 'park', 'water_park', 'marina', 'nature_reserve', 'playground', 'garden', 'common', 'forest', 'wood')\n                    OR amenity IN ('graveyard')\n                 ORDER BY z_order ASC, way_area DESC\n                ) AS greens",
+        "extent": "",
+        "key_field": "",
+        "geometry_field": "",
+        "user": "postgres",
+        "dbname": "osm",
+        "id": "green-areas",
+        "project": "toner4tilemill",
+        "srs": null
+      },
+      "id": "green-areas",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "name": "green-areas"
+    },
+    {
+      "geometry": "polygon",
+      "id": "lakes-110m",
+      "class": "",
+      "Datasource": {
+        "file": "layers/lakes-110m/110m_lakes.shp",
+        "id": "lakes-110m",
+        "project": "toner4tilemill",
+        "srs": null
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "lakes-110m"
+    },
+    {
+      "geometry": "polygon",
+      "id": "lakes-50m",
+      "class": "",
+      "Datasource": {
+        "file": "layers/lakes-50m/50m-lakes.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "lakes-50m"
+    },
+    {
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT way,\n                        ST_Area(way) AS area\n                 FROM planet_osm_polygon\n                 WHERE \"natural\" IN ('water', 'bay')\n                    OR waterway IN ('riverbank')\n                    OR landuse IN ('reservoir')\n                 ORDER BY z_order ASC, way_area DESC\n                \n                ) AS water",
+        "extent": "",
+        "key_field": "",
+        "geometry_field": "",
+        "user": "postgres",
+        "dbname": "osm"
+      },
+      "id": "water-bodies",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "name": "water-bodies"
+    },
+    {
+      "geometry": "polygon",
+      "id": "lakes-10m",
+      "class": "",
+      "Datasource": {
+        "file": "layers/lakes-10m/ne_10m_lakes.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "lakes-10m"
+    },
+    {
+      "geometry": "linestring",
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT way,\n                        name,\n                        aeroway\n                 FROM planet_osm_line\n                 WHERE aeroway IS NOT NULL\n                \n                ) AS aeroway",
+        "extent": "",
+        "key_field": "",
+        "geometry_field": "",
+        "user": "postgres",
+        "dbname": "osm",
+        "id": "aeroways",
+        "project": "toner4tilemill",
+        "srs": null
+      },
+      "id": "aeroways",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "name": "aeroways"
+    },
+    {
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT osm_id, way, ST_Area(way) AS area FROM planet_osm_polygon WHERE building IS NOT NULL ORDER BY z_order ASC, way_area DESC) AS footprints",
+        "extent": "",
+        "key_field": "",
+        "geometry_field": "",
+        "user": "postgres",
+        "dbname": "osm",
+        "id": "buildings",
+        "project": "toner4tilemill",
+        "srs": null
+      },
+      "id": "buildings",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "name": "buildings"
+    },
+    {
+      "geometry": "linestring",
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT way, highway, railway,\n         (CASE WHEN highway IN ('motorway') THEN 'highway'\n               WHEN highway IN ('trunk', 'primary') THEN 'major_road'\n               ELSE 'minor_road' END) AS kind,\n\n         'no'::VARCHAR AS is_link,\n         (CASE WHEN tunnel IN ('yes', 'true') THEN 'yes'\n               ELSE 'no' END) AS is_tunnel,\n         (CASE WHEN bridge IN ('yes', 'true') THEN 'yes'\n               ELSE 'no' END) AS is_bridge,\n\n         (CASE WHEN highway IN ('motorway') THEN 0\n               WHEN highway IN ('trunk', 'primary') THEN 1\n               WHEN highway IN ('secondary', 'tertiary') THEN 2\n               ELSE 99 END) AS priority\nFROM planet_osm_line\nWHERE highway IN ('motorway')\nOR highway IN ('trunk', 'primary')\nOR highway IN ('secondary')) as roads",
+        "extent": "",
+        "key_field": "",
+        "geometry_field": "",
+        "user": "postgres",
+        "dbname": "osm",
+        "id": "osm-roads-far",
+        "project": "toner4tilemill",
+        "srs": null
+      },
+      "id": "z10-roads",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "name": "z10-roads"
+    },
+    {
+      "geometry": "linestring",
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT way, highway, railway,\n         (CASE WHEN highway IN ('motorway') THEN 'highway'\n               WHEN highway IN ('trunk', 'primary') THEN 'major_road'\n               ELSE 'minor_road' END) AS kind,\n\n         'no'::VARCHAR AS is_link,\n         (CASE WHEN tunnel IN ('yes', 'true') THEN 'yes'\n               ELSE 'no' END) AS is_tunnel,\n         (CASE WHEN bridge IN ('yes', 'true') THEN 'yes'\n               ELSE 'no' END) AS is_bridge,\n\n         (CASE WHEN highway IN ('motorway') THEN 0\n               WHEN highway IN ('trunk', 'primary') THEN 1\n               WHEN highway IN ('secondary', 'tertiary') THEN 2\n               ELSE 99 END) AS priority\nFROM planet_osm_line\nWHERE highway IN ('motorway')\nOR highway IN ('trunk', 'primary')\nOR highway IN ('secondary', 'tertiary')) as roads",
+        "extent": "",
+        "key_field": "",
+        "geometry_field": "",
+        "user": "postgres",
+        "dbname": "osm"
+      },
+      "id": "z11-roads",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "name": "z11-roads"
+    },
+    {
+      "geometry": "linestring",
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT way, highway, railway,\n\t(CASE WHEN highway IN ('motorway', 'motorway_link') THEN 'highway'\n\t\tWHEN highway IN ('trunk', 'trunk_link', 'secondary', 'primary') THEN 'major_road'\n\t\tELSE 'minor_road' END) AS kind,\n\n\t(CASE WHEN highway LIKE '%_link' THEN 'yes' ELSE 'no' END) AS is_link,\n\t(CASE WHEN tunnel IN ('yes', 'true') THEN 'yes' ELSE 'no' END) AS is_tunnel,\n\t(CASE WHEN bridge IN ('yes', 'true') THEN 'yes' ELSE 'no' END) AS is_bridge,\n\n\t(CASE WHEN highway IN ('motorway') THEN 0\n\t\tWHEN highway IN ('motorway_link') THEN 1\n\t\tWHEN highway IN ('trunk', 'primary', 'secondary', 'tertiary') THEN 2\n\t\tWHEN highway IN ('trunk_link', 'primary_link', 'secondary_link') THEN 3\n\t\tWHEN highway IN ('residential', 'unclassified', 'road') THEN 4\n\tELSE 99 END) AS priority\nFROM planet_osm_line\n\tWHERE highway IN ('motorway', 'motorway_link')\n\tOR highway IN ('trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary')\n\tOR highway IN ('residential', 'unclassified', 'road', 'unclassified')\n) as roads",
+        "extent": "",
+        "key_field": "",
+        "geometry_field": "",
+        "user": "postgres",
+        "dbname": "osm",
+        "id": "z12-roads",
+        "project": "toner4tilemill",
+        "srs": null
+      },
+      "id": "z12-roads",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "name": "z12-roads"
+    },
+    {
+      "geometry": "linestring",
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT way, highway, railway, bridge,\n\t(CASE WHEN highway IN ('motorway', 'motorway_link') THEN 'highway'\n\t\tWHEN highway IN ('trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link') THEN 'major_road'\n\t\tELSE 'minor_road' END) AS kind,\n\n\t(CASE WHEN highway LIKE '%_link' THEN 'yes'\n\t\tELSE 'no' END) AS is_link,\n\t(CASE WHEN tunnel IN ('yes', 'true') THEN 'yes'\n\t\tELSE 'no' END) AS is_tunnel,\n\t(CASE WHEN bridge IN ('yes', 'true') THEN 'yes'\n\t\tELSE 'no' END) AS is_bridge,\n\n\t(CASE WHEN highway IN ('motorway') THEN 0\n\t\tWHEN highway IN ('motorway_link') THEN 1\n\t\tWHEN highway IN ('trunk', 'primary', 'secondary', 'tertiary') THEN 2\n\t\tWHEN highway IN ('trunk_link', 'primary_link', 'secondary_link') THEN 3\n\t\tWHEN highway IN ('residential', 'unclassified', 'road') THEN 4\n\tELSE 99 END) AS priority\nFROM planet_osm_line\n\tWHERE highway IN ('motorway', 'motorway_link')\n\t\tOR highway IN ('trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary')\n\t\tOR highway IN ('residential', 'unclassified', 'road', 'unclassified')\n) as roads",
+        "extent": "",
+        "key_field": "",
+        "geometry_field": "",
+        "user": "postgres",
+        "dbname": "osm"
+      },
+      "id": "z13-roads",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "name": "z13-roads"
+    },
+    {
+      "geometry": "linestring",
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT way, highway, railway, layer, tunnel, bridge,\n\t(CASE\n\t\tWHEN highway IN ('motorway', 'motorway_link') THEN 'highway'\n\t\tWHEN highway IN ('trunk', 'trunk_link', 'primary', 'primary_link','secondary', 'secondary_link', 'tertiary', 'tertiary_link') THEN 'major_road'\n\t\tWHEN highway IN ('residential', 'unclassified', 'road', 'minor') THEN 'minor_road'\n\t\tWHEN railway IN ('rail') THEN 'rail' \n\t\tELSE 'unknown' END) AS kind,\n\n\t(CASE\n\t\tWHEN highway LIKE '%_link' THEN 'yes'\n\t\tELSE 'no' END) AS is_link,\n\t(CASE \n\t\tWHEN tunnel IN ('yes', 'true') THEN 'yes'\n\t\tELSE 'no' END) AS is_tunnel, \n\t(CASE \n\t\tWHEN bridge IN ('yes', 'true') THEN 'yes' \n\t\tELSE 'no' END) AS is_bridge,\n\t(CASE \n\t\tWHEN highway IN ('motorway', 'motorway_link', 'trunk', 'trunk_link') THEN 0\n\t\tELSE 99 END) AS grouping,\n\t(CASE \n\t\tWHEN layer ~ E'^-?[[:digit:]]+(\\.[[:digit:]]+)?$' THEN CAST (layer AS FLOAT) \n\t\tELSE 0 END) AS explicit_layer,\n\t(CASE \n\t\tWHEN highway IN ('motorway') THEN 0 \n\t\tWHEN highway IN ('trunk') THEN 1\n\t\tWHEN highway IN ('primary') THEN 2\n\t\tWHEN highway IN ('secondary') THEN 3\n\t\tWHEN highway IN ('tertiary') THEN 4\n\t\tWHEN highway LIKE '%_link' THEN 5\n\t\tWHEN highway IN ('residential', 'unclassified', 'road', 'minor') THEN 6\n\t\tWHEN railway IN ('rail') THEN 7 \n\t\tELSE 99 END) AS priority \nFROM planet_osm_line \n\tWHERE \n\t\thighway IN ('motorway', 'motorway_link') OR\n\t\thighway IN ('trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link') OR highway IN ('residential', 'unclassified', 'road', 'minor') OR railway IN ('rail')\n\tORDER BY grouping DESC, explicit_layer ASC, priority DESC\n ) as roads",
+        "extent": "",
+        "key_field": "",
+        "geometry_field": "",
+        "user": "postgres",
+        "dbname": "osm"
+      },
+      "id": "z14-roads",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "name": "z14-roads"
+    },
+    {
+      "geometry": "linestring",
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT way, highway, railway, render, (CASE WHEN highway IN ('motorway', 'motorway_link') THEN 'highway' WHEN highway IN ('trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link') THEN 'major_road' WHEN highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway') THEN 'path' WHEN railway IN ('rail', 'tram', 'light_rail', 'narrow_guage', 'monorail') THEN 'rail' ELSE 'minor_road' END) AS kind,\n\n (CASE WHEN highway LIKE '%_link' THEN 'yes' ELSE 'no' END) AS is_link, (CASE WHEN tunnel IN ('yes', 'true') THEN 'yes' ELSE 'no' END) AS is_tunnel, (CASE WHEN bridge IN ('yes', 'true') THEN 'yes' ELSE 'no' END) AS is_bridge,\n\n (CASE WHEN highway IN ('motorway', 'motorway_link', 'trunk', 'trunk_link') THEN 0 ELSE 99 END) AS grouping,\n\n (CASE WHEN layer ~ E'^-?[[:digit:]]+(\\.[[:digit:]]+)?$' THEN CAST (layer AS FLOAT) ELSE 0 END) AS explicit_layer,\n\n (CASE WHEN highway IN ('motorway') THEN 0 WHEN railway IN ('rail', 'tram', 'light_rail', 'narrow_guage', 'monorail') THEN .5 WHEN highway IN ('trunk') THEN 1 WHEN highway IN ('primary') THEN 2 WHEN highway IN ('secondary') THEN 3 WHEN highway IN ('tertiary') THEN 4 WHEN highway LIKE '%_link' THEN 5 WHEN highway IN ('residential', 'unclassified', 'road') THEN 6 WHEN highway IN ('unclassified', 'service', 'minor') THEN 7 ELSE 99 END) AS priority FROM (\n\n SELECT *, 'outline' AS render, 1 AS is_outline, 1 AS is_casing FROM planet_osm_line WHERE highway IN ('motorway', 'motorway_link') OR highway IN ('trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link') OR highway IN ('residential', 'unclassified', 'road', 'unclassified', 'service', 'minor') OR highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway') OR railway IN ('rail', 'tram', 'light_rail', 'narrow_guage', 'monorail')\n\n UNION\n\n SELECT *, 'casing' AS render, 0 AS is_outline, 1 AS is_casing FROM planet_osm_line WHERE highway IN ('motorway', 'motorway_link') OR highway IN ('trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link') OR highway IN ('residential', 'unclassified', 'road', 'unclassified', 'service', 'minor') OR highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway') OR railway IN ('rail', 'tram', 'light_rail', 'narrow_guage', 'monorail')\n\n UNION\n\n SELECT *, 'inline' AS render, 0 AS is_outline, 0 AS is_casing FROM planet_osm_line WHERE highway IN ('motorway', 'motorway_link') OR highway IN ('trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link') OR highway IN ('residential', 'unclassified', 'road', 'unclassified', 'service', 'minor') OR highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway') OR railway IN ('rail', 'tram', 'light_rail', 'narrow_guage', 'monorail')\n\n ) AS roads\n\nORDER BY grouping DESC, is_outline DESC, explicit_layer ASC, is_casing DESC, priority DESC\n\n) as data",
+        "extent": "",
+        "key_field": "",
+        "geometry_field": "",
+        "user": "postgres",
+        "dbname": "osm",
+        "id": "roads_high",
+        "project": "toner4tilemill",
+        "srs": null
+      },
+      "id": "roads_high",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "name": "roads_high"
+    },
+    {
+      "geometry": "linestring",
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT way, highway, railway, access, render, 0 as bridge, 0 as tunnel, (CASE WHEN highway IN ('motorway', 'motorway_link') THEN 'highway' WHEN highway IN ('trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link') THEN 'major_road' WHEN highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway') THEN 'path' WHEN railway IN ('rail', 'tram', 'light_rail', 'narrow_gauge', 'monorail') THEN 'rail' ELSE 'minor_road' END) AS kind,\n\n (CASE WHEN highway LIKE '%_link' THEN 'yes' ELSE 'no' END) AS is_link, (CASE WHEN tunnel IN ('yes', 'true') THEN 'yes' ELSE 'no' END) AS is_tunnel, (CASE WHEN bridge IN ('yes', 'true') THEN 'yes' ELSE 'no' END) AS is_bridge, (CASE WHEN layer ~ E'^-?[[:digit:]]+(\\.[[:digit:]]+)?$' THEN CAST (layer AS FLOAT) ELSE 0 END) AS explicit_layer, (CASE WHEN tunnel in ('yes', 'true') THEN -1 WHEN bridge in ('yes', 'true') THEN 1 ELSE 0 END) AS implied_layer, (CASE WHEN highway IN ('motorway') THEN 0 WHEN railway IN ('rail', 'tram', 'light_rail', 'narrow_guage', 'monorail') THEN .5 WHEN highway IN ('trunk') THEN 1 WHEN highway IN ('primary') THEN 2 WHEN highway IN ('secondary') THEN 3 WHEN highway IN ('tertiary') THEN 4 WHEN highway LIKE '%_link' THEN 5 WHEN highway IN ('residential', 'unclassified', 'road') THEN 6 WHEN highway IN ('unclassified', 'service', 'minor') THEN 7 ELSE 99 END) AS priority\n\nFROM ( SELECT *, '1_outline' AS render FROM planet_osm_line WHERE bridge NOT IN ('', '0', 'no')\n\n UNION ALL\n\n SELECT *, '2_line' AS render FROM planet_osm_line WHERE bridge NOT IN ('', '0', 'no')\n\n UNION ALL\n\n SELECT *, '3_inline' AS render FROM planet_osm_line WHERE bridge NOT IN ('', '0', 'no') ) as bridges\n\nORDER BY layer ASC, render ASC) as data",
+        "extent": "",
+        "key_field": "",
+        "geometry_field": "",
+        "user": "postgres",
+        "dbname": "osm",
+        "id": "bridges",
+        "project": "toner4tilemill",
+        "srs": null
+      },
+      "id": "bridges",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "name": "bridges"
+    },
+    {
+      "geometry": "point",
+      "id": "continent-labels",
+      "class": "",
+      "Datasource": {
+        "file": "layers/continents/continents.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "continent-labels"
+    },
+    {
+      "geometry": "polygon",
+      "id": "marine-labels-110m",
+      "class": "",
+      "Datasource": {
+        "file": "layers/110m-geography-marine-polys/110m_geography_marine_polys-900913.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "marine-labels-110m"
+    },
+    {
+      "geometry": "point",
+      "id": "country-labels-110m-z3",
+      "class": "country-labels-110m",
+      "Datasource": {
+        "file": "layers/admin_0_countries_110m-points/admin_0_countries_110m-points.shp",
+        "id": "country-labels-110m-z3",
+        "project": "toner4tilemill",
+        "srs": null
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "country-labels-110m-z3"
+    },
+    {
+      "geometry": "polygon",
+      "id": "country-labels-110m-z4",
+      "class": "country-labels-110m",
+      "Datasource": {
+        "file": "layers/admin-0-labels-z4/admin-0-labels-z4.shp",
+        "id": "country-labels-110m-z4",
+        "project": "toner4tilemill",
+        "srs": null
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "country-labels-110m-z4"
+    },
+    {
+      "geometry": "polygon",
+      "id": "country-labels-110m-z5",
+      "class": "country-labels-110m",
+      "Datasource": {
+        "file": "layers/admin-0-labels-z5/admin-0-labels-z5.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "country-labels-110m-z5"
+    },
+    {
+      "geometry": "polygon",
+      "id": "country-labels-110m-z6",
+      "class": "country-labels-110m",
+      "Datasource": {
+        "file": "layers/admin-0-labels-z6/admin-0-labels-z6.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "country-labels-110m-z6"
+    },
+    {
+      "geometry": "polygon",
+      "id": "admin1-labels-50m-z4",
+      "class": "",
+      "Datasource": {
+        "file": "layers/admin-1-labels-z4/admin-1-labels-z4.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "admin1-labels-50m-z4"
+    },
+    {
+      "geometry": "polygon",
+      "id": "admin1-labels-50m-z5",
+      "class": "",
+      "Datasource": {
+        "file": "layers/admin-1-labels-z5/admin-1-labels-z5.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "admin1-labels-50m-z5"
+    },
+    {
+      "geometry": "polygon",
+      "id": "admin1-labels-50m-z6",
+      "class": "",
+      "Datasource": {
+        "file": "layers/admin-1-labels-z6/admin-1-labels-z6.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "admin1-labels-50m-z6"
+    },
+    {
+      "geometry": "polygon",
+      "id": "admin1-labels-50m-z7",
+      "class": "",
+      "Datasource": {
+        "file": "layers/admin-1-labels-z7/admin-1-labels-z7.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "admin1-labels-50m-z7"
+    },
+    {
+      "geometry": "polygon",
+      "id": "marine-labels-50m",
+      "class": "",
+      "Datasource": {
+        "file": "layers/50m-geography-marine-polys/50m_geography_marine_polys-900913.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "marine-labels-50m"
+    },
+    {
+      "geometry": "polygon",
+      "id": "marine-labels-10m",
+      "class": "",
+      "Datasource": {
+        "file": "layers/10m-geography-marine-polys/ne_10m_geography_marine_polys-900913.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "marine-labels-10m"
+    },
+    {
+      "geometry": "point",
+      "id": "city-points-z4",
+      "class": "",
+      "Datasource": {
+        "file": "layers/city-points-z4/world-points-z4-900913.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "city-points-z4"
+    },
+    {
+      "geometry": "point",
+      "id": "city-points-z5",
+      "class": "",
+      "Datasource": {
+        "file": "layers/city-points-z5/world-points-z5-900913.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "city-points-z5"
+    },
+    {
+      "geometry": "point",
+      "id": "city-points-z6",
+      "class": "",
+      "Datasource": {
+        "file": "layers/city-points-z6/world-points-z6-900913.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "city-points-z6"
+    },
+    {
+      "geometry": "point",
+      "id": "city-points-z7",
+      "class": "",
+      "Datasource": {
+        "file": "layers/city-points-z7/world-points-z7-900913.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "city-points-z7"
+    },
+    {
+      "geometry": "point",
+      "id": "city-points-z8",
+      "class": "",
+      "Datasource": {
+        "file": "layers/city-points-z8/world-points-z8-900913.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "city-points-z8"
+    },
+    {
+      "geometry": "polygon",
+      "id": "city-labels-z4",
+      "class": "",
+      "Datasource": {
+        "file": "layers/city-labels-z4/city-labels-z4-900913.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "city-labels-z4"
+    },
+    {
+      "geometry": "polygon",
+      "id": "city-labels-z5",
+      "class": "",
+      "Datasource": {
+        "file": "layers/city-labels-z5/city-labels-z5-900913.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "city-labels-z5"
+    },
+    {
+      "geometry": "polygon",
+      "id": "city-labels-z6",
+      "class": "",
+      "Datasource": {
+        "file": "layers/city-labels-z6/city-labels-z6-900913.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "city-labels-z6"
+    },
+    {
+      "geometry": "polygon",
+      "id": "city-labels-z7",
+      "class": "",
+      "Datasource": {
+        "file": "layers/city-labels-z7/city-labels-z7-900913.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "city-labels-z7"
+    },
+    {
+      "geometry": "polygon",
+      "id": "city-labels-z8",
+      "class": "",
+      "Datasource": {
+        "file": "layers/city-labels-z8/city-labels-z8-900913.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "city-labels-z8"
+    },
+    {
+      "geometry": "point",
+      "id": "city-points-z9",
+      "class": "",
+      "Datasource": {
+        "file": "layers/city-points-z9/city-point-z9-900913.shp",
+        "id": "city-points-z9",
+        "project": "toner4tilemill",
+        "srs": null
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "city-points-z9"
+    },
+    {
+      "geometry": "point",
+      "id": "city-points-z10",
+      "class": "",
+      "Datasource": {
+        "file": "layers/city-points-z10/city-points-z10-900913.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "city-points-z10"
+    },
+    {
+      "geometry": "point",
+      "id": "city-points-z11",
+      "class": "",
+      "Datasource": {
+        "file": "layers/city-points-z10/city-points-z10-900913.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "city-points-z11"
+    },
+    {
+      "geometry": "point",
+      "id": "city-points-z12",
+      "class": "",
+      "Datasource": {
+        "file": "layers/city-points-z10/city-points-z10-900913.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "city-points-z12"
+    },
+    {
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT way, name, ST_Area(way) AS area, leisure, landuse FROM planet_osm_polygon WHERE leisure IN ('park', 'water_park', 'marina', 'nature_reserve', 'playground', 'garden', 'common', 'sports_centre', 'golf_course', 'stadium', 'track', 'pitch') OR landuse IN ('cemetery', 'park', 'water_park', 'marina', 'nature_reserve', 'playground', 'garden', 'common', 'forest', 'wood') OR amenity IN ('graveyard') ORDER BY z_order ASC) AS greenlabels",
+        "extent": "",
+        "key_field": "",
+        "geometry_field": "",
+        "user": "postgres",
+        "dbname": "osm",
+        "id": "green-areas-labels",
+        "project": "toner4tilemill",
+        "srs": null
+      },
+      "id": "green-areas-labels",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "name": "green-areas-labels"
+    },
+    {
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT way, name, ST_Area(way) AS area, landuse as type FROM planet_osm_polygon WHERE \"natural\" IN ('water', 'bay') OR waterway IN ('riverbank') OR landuse IN ('reservoir') ORDER BY z_order ASC, way_area DESC) AS water",
+        "extent": "",
+        "key_field": "",
+        "geometry_field": "",
+        "user": "postgres",
+        "dbname": "osm"
+      },
+      "id": "water-bodies-labels",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "name": "water-bodies-labels"
+    },
+    {
+      "geometry": "linestring",
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT way, (CASE WHEN highway = 'motorway' THEN '' ELSE name END) AS name, (CASE WHEN highway = 'motorway' AND CHAR_LENGTH(ref) BETWEEN 2 AND 15 THEN REGEXP_REPLACE(ref, E'\\s*;\\s*', E' / ', 'g') ELSE '' END) AS ref, (CASE WHEN highway = 'motorway' AND CHAR_LENGTH(ref) BETWEEN 2 AND 15 THEN CHAR_LENGTH(ref) ELSE 0 END) AS ref_length, highway, ST_Length(way) AS length,\n\n (CASE WHEN highway IN ('motorway', 'motorway_link') THEN 0 WHEN highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway') THEN 1 WHEN railway IN ('rail', 'spur', 'subway', 'light_rail', 'tram', 'abandoned', 'disused', 'monorail') THEN 2 WHEN highway IN ('trunk', 'trunk_link', 'primary', 'primary_link') THEN 3 WHEN highway = 'secondary' THEN 4 WHEN highway = 'tertiary' THEN 5 ELSE 9 END) AS priority, (CASE WHEN highway IN ('secondary', 'trunk', 'trunk_link', 'primary', 'primary_link', 'motorway', 'motorway_link') THEN 'major_road' WHEN highway IN ('residential', 'unclassified', 'service', 'minor', 'road', 'tertiary') THEN 'minor_road' WHEN railway IN ('rail', 'spur', 'subway', 'light_rail', 'tram', 'abandoned', 'disused', 'monorail') THEN 'rail' WHEN highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway') THEN 'path' ELSE '' END) AS kind, (CASE WHEN tunnel IN ('yes', 'true') THEN 'yes' ELSE 'no' END) AS is_tunnel, (CASE WHEN bridge IN ('yes', 'true') THEN 'yes' ELSE 'no' END) AS is_bridge\n\n FROM planet_osm_line\n\n WHERE highway IN ('secondary', 'trunk', 'trunk_link', 'primary', 'primary_link', 'motorway', 'motorway_link')\n\n ORDER BY priority ASC, length DESC)\n\n AS collected_lines",
+        "extent": "",
+        "key_field": "",
+        "geometry_field": "",
+        "user": "postgres",
+        "dbname": "osm"
+      },
+      "id": "major-road-labels",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "name": "major-road-labels"
+    },
+    {
+      "geometry": "linestring",
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT way, name, highway, ST_Length(way) AS length,\n\t(CASE\n\t\tWHEN highway IN ('motorway', 'motorway_link') THEN 0\n\t\tWHEN highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway') THEN 1\n\t\tWHEN railway IN ('rail', 'spur', 'subway', 'light_rail', 'tram', 'abandoned', 'disused', 'monorail') THEN 2\n\t\tWHEN highway IN ('trunk', 'trunk_link', 'primary', 'primary_link') THEN 3 WHEN highway = 'secondary' THEN 4\n\t\tWHEN highway = 'tertiary' THEN 5 ELSE 9 END) AS priority, (CASE WHEN highway IN ('secondary', 'trunk', 'trunk_link', 'primary', 'primary_link', 'motorway', 'motorway_link') THEN 'major_road'\n\t\tWHEN highway IN ('residential', 'unclassified', 'service', 'minor', 'road', 'tertiary') THEN 'minor_road'\n\t\tWHEN railway IN ('rail', 'spur', 'subway', 'light_rail', 'tram', 'abandoned', 'disused', 'monorail') THEN 'rail'\n\t\tWHEN highway IN ('footpath', 'track', 'footway', 'steps', 'pedestrian', 'path', 'cycleway') THEN 'path'\n\tELSE '' END) AS kind,\n\t(CASE WHEN tunnel IN ('yes', 'true') THEN 'yes'\n\tELSE 'no' END) AS is_tunnel,\n\t(CASE WHEN bridge IN ('yes', 'true') THEN 'yes'\n\tELSE 'no' END) AS is_bridge\n\n FROM planet_osm_line\n\n WHERE highway IN ('residential', 'unclassified', 'service', 'minor', 'road', 'tertiary')\n\n ORDER BY priority ASC, length DESC)\n\n AS collected_lines",
+        "extent": "",
+        "key_field": "",
+        "geometry_field": "",
+        "user": "postgres",
+        "dbname": "osm"
+      },
+      "id": "minor-road-labels",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "name": "minor-road-labels"
+    },
+    {
+      "geometry": "point",
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT way, name, railway, highway FROM planet_osm_point WHERE \"railway\" IN ('station') OR \"highway\" IN ('bus_stop') ORDER BY z_order ASC, way DESC) AS poi",
+        "extent": "",
+        "key_field": "",
+        "geometry_field": "",
+        "user": "postgres",
+        "dbname": "osm"
+      },
+      "id": "poi-station-labels",
+      "class": "",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "name": "poi-station-labels"
+    },
+    {
+      "geometry": "point",
+      "id": "airports",
+      "class": "",
+      "Datasource": {
+        "file": "layers/airports/airports-simple-0d29-less-merc.shp"
+      },
+      "srs-name": "autodetect",
+      "srs": "",
+      "name": "airports"
+    }
+  ],
+  "name": "Toner for Tilemill",
+  "description": "A port of Stamen's high contrast, black-and-white mapping style, Toner, for use with Tilemill.",
+  "attribution": "Design by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under CC BY SA."
+}

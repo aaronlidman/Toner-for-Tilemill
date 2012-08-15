@@ -1,0 +1,4 @@
+build
+*.pyc
+configure.py
+.DS_Store
