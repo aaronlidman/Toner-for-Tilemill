@@ -1,7 +1,8 @@
 Toner for Tilemill
 ==================
 
-![Toner for Tilemill preview](preview.png)
+![Toner for Tilemill screenshot](https://raw.github.com/aaronlidman/Toner-for-Tilemill/master/preview.png)
+
 Toner for Tilemill is a port of [Stamen's](http://stamen.com/) high contrast, black-and-white mapping style, [Toner](https://github.com/Citytracking/toner), for use with [Tilemill](http://mapbox.com/tilemill). The style is ment to reflect the current state of Toner's appearance in the easy to use Tilemill environment. [Check out a map of the output.](http://jsfiddle.net/E5khK/7/embedded/result/)
 
 It's still a work in progress with some known problems, feel free to file an [issue](http://github.com/aaronlidman/Toner-for-Tilemill/issues/) if you notice something wrong or isn't in sync with the apperance of original Toner.
@@ -9,11 +10,10 @@ It's still a work in progress with some known problems, feel free to file an [is
 Differences from Toner
 ---
 
-While this port is an attempt to stay faithful to the original appearance of Toner there are a few minor difference you might notice between what is rendered by (Stamen)[http://maps.stamen.com/toner] and the output from Toner for Tilemill. The shapefiles are all a bit more up to date, currently using Natural Earth 1.5 beta data where possible, so you might notice some extra roads or different coastlines in zoom levels 0 through 7.
-
 In some places the [Carto](http://github.com/mapbox/carto) markup is structured differently than the original Cascadenik mostly to take advantage of features in Carto, so there is plenty of nesting, some instances, and a few attachments. For features like highways, bodies of water, and land, colors have been made into variables for easy modifications. The stylesheets have also been organized with similarly grouped features; all roads are in one place, as are labels, boundaries, and land features.
 
-![features](features.png)
+![Toner for Tilemill features](https://raw.github.com/aaronlidman/Toner-for-Tilemill/master/features.png)
+
 
 Setup Instructions
 ---
