@@ -84,6 +84,6 @@ with the variables you set in `configure.py` and install a copy of this build
 to your MapBox project folder. If you open up TileMill you should see your new
 map in the project listing.
 
-Do note, opening the project for the first time may take a while because the coastline shapefile has to be downloaded and cached, it it's ~300mb and only has to be downloaded once.
+Do note, opening the project for the first time may take a while because the coastline shapefile has to be downloaded and cached, Tilemill might look like it froze but it's fine, just let it be. The file is ~300mb and only has to be downloaded once.
 
 You're now ready to start editing the template in TileMill!
