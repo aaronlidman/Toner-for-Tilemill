@@ -7,10 +7,10 @@ Toner for Tilemill is a port of [Stamen's](http://stamen.com/) high contrast, bl
 
 It's still a work in progress with some known problems, feel free to file an [issue](http://github.com/aaronlidman/Toner-for-Tilemill/issues/) if you notice something wrong or isn't in sync with the apperance of original Toner.
 
-Differences from Toner
+Features
 ---
 
-In some places the [Carto](http://github.com/mapbox/carto) markup is structured differently than the original Cascadenik mostly to take advantage of features in Carto, so there is plenty of nesting, some instances, and a few attachments. For features like highways, bodies of water, and land, colors have been made into variables for easy modifications. The stylesheets have also been organized with similarly grouped features; all roads are in one place, as are labels, boundaries, and land features.
+In some places the [Carto](http://github.com/mapbox/carto) markup is structured differently than the original Cascadenik mostly to take advantage of features in Carto, so there is plenty of nesting, some instances, and a few attachments. For features like highways, bodies of water, and land, colors have been made into variables for easy modifications. Stylesheets have also been organized with similarly grouped features; all roads are in one place, as are labels, boundaries, and land features.
 
 ![Toner for Tilemill features](https://raw.github.com/aaronlidman/Toner-for-Tilemill/master/features.png)
 
