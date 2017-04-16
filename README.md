@@ -1,7 +1,7 @@
 Toner for Tilemill
 ==================
 
-#####NOTE: This repo is for an obsolete version of Toner. For the up-to-date repo, please go to: http://github.com/stamen/toner-carto
+##### NOTE: This repo is for an obsolete version of Toner. For the up-to-date repo, please go to: http://github.com/stamen/toner-carto
 
 ![Toner for Tilemill screenshot](https://raw.github.com/aaronlidman/Toner-for-Tilemill/master/preview.png)
 
